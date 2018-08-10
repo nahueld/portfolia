@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import NavBar from "./components/navbar/Navbar";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import SearchPage from "./pages/search_page/SearchPage";
+import FavoritesPage from "./pages/favorites_page/FavoritesPage";
+import DetailsPage from "./pages/details_page/DetailsPage";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+const App = props => (
+  <Router>
+    <div>
+      <NavBar />
+      <Route exact path="/" component={SearchPage} />
+      <Route path="/favorited" component={FavoritesPage} />
+      <Route path="/details/:id" component={DetailsPage} />
+    </div>
+  </Router>
+);
 
 export default App;
