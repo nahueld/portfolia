@@ -2,7 +2,7 @@
 
 A react-mobx application to display and favorite images.
 
-[Live version](https://google.com)
+[Live version](https://trusting-cray-107731.netlify.com)
 
 ## Requirements
 
@@ -28,6 +28,6 @@ A react-mobx application to display and favorite images.
 
 ## Instructions
 
-- Run `npm install`.
-- Run `npm start`.
-- To run tests `npm test`.
+- Run `npm install`
+- Run `npm start`
+- To run tests `npm test`
