@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchBar = props => (
+const SearchBar = ({ onSearch }) => (
   <div className="input-group mb-3">
     <input
       type="text"
@@ -10,7 +10,11 @@ const SearchBar = props => (
       aria-describedby="basic-addon2"
     />
     <div className="input-group-append">
-      <button className="btn btn-outline-primary" type="button">
+      <button
+        onClick={onSearch}
+        className="btn btn-outline-primary"
+        type="button"
+      >
         <i className="fa fa-search" aria-hidden="true" />
       </button>
     </div>

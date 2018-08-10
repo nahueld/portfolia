@@ -31,3 +31,7 @@ A react-mobx application to display and favorite images.
 - Run `npm install`
 - Run `npm start`
 - To run tests `npm test`
+
+## Notes
+
+- I'm using the unsplash library for simplicity however `npm audit` shows a high risk vulnerability, this lib. should not be used in prod.
