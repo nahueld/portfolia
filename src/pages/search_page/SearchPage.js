@@ -13,8 +13,8 @@ const styles = {
   }
 };
 
-const SearchPage = inject("picturesStore")(
-  observer(({ picturesStore }) => (
+const SearchPage = inject("picturesStore", "favoritesStore")(
+  observer(({ picturesStore, favoritesStore }) => (
     <div className="container h-100">
       <div className="d-flex flex-column">
         <div style={styles.searchBarContainer}>
@@ -25,7 +25,11 @@ const SearchPage = inject("picturesStore")(
         </div>
         <div className="d-flex flex-wrap justify-content-center">
           {picturesStore.pictures.map(picture => (
-            <ImageCard picture={picture} key={picture.id} />
+            <ImageCard
+              picture={picture}
+              key={picture.id}
+              makeFavorite={() => favoritesStore.saveFavorite(picture)}
+            />
           ))}
         </div>
         <div

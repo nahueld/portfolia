@@ -9,7 +9,7 @@ const styles = {
   }
 };
 
-const ImageCard = ({ picture, isFavorite }) => (
+const ImageCard = ({ picture, isFavorite, makeFavorite }) => (
   <div className="card mr-2 mb-2" style={styles.card}>
     <LazyImage src={picture.urls.thumb} imageClass={"card-img-top"} />
     <div className="card-body text-center" style={styles.cardBody}>
@@ -18,7 +18,7 @@ const ImageCard = ({ picture, isFavorite }) => (
       <p className="card-text">
         <Link to={`/details/${picture.id}`}>more...</Link>
       </p>
-      <FavoriteButton isFavorite={isFavorite} />
+      <FavoriteButton isFavorite={isFavorite} makeFavorite={makeFavorite} />
     </div>
   </div>
 );

@@ -6,13 +6,14 @@ const styles = {
   }
 };
 
-const FavoriteButton = props => (
+const FavoriteButton = ({ isFavorite, makeFavorite }) => (
   <i
+    onClick={makeFavorite}
     style={{
       ...styles.favoriteIcon
     }}
     className={`fa fa-heart-o fa-3x ${
-      props.isFavorite ? "text-danger" : "text-dark"
+      isFavorite ? "text-danger" : "text-dark"
     }`}
     aria-hidden="true"
   />
