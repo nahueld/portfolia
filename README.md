@@ -1,6 +1,6 @@
 # Porfolia
 
-A react-mobx application to display and favorite images.
+A react-mobx application to search and save your favorite images (powered by Unsplash).
 
 [Live version](https://trusting-cray-107731.netlify.com)
 
@@ -34,5 +34,6 @@ A react-mobx application to display and favorite images.
 
 ## Notes
 
-- I'm using the unsplash library for simplicity however `npm audit` shows a high risk vulnerability, this lib. should not be used in prod.
-- I'm holding state in mobx but for now I'm not falling back to URL parameters on refresh.
+- I'm using the unsplash library for simplicity however `npm audit` shows a high risk vulnerability, this lib should not be used in prod.
+- I'm holding state in mobx, navigation does not hold any state.
+- Local Storage is used to persist favorites.
