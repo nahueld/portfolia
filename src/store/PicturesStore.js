@@ -68,7 +68,6 @@ class PictureStore {
 
   @action
   makeUnfavorite(picture) {
-    console.log("makeUnfavorite", picture);
     _(this.picturesRegistry).forEach(p => {
       if (p.id === picture.id) p.isFavorite = false;
     });
