@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import FavoriteButton from "../favorite_button/FavoriteButton";
+import LazyImage from "../lazy_image/LazyImage";
 
 const styles = {
   card: {
@@ -10,7 +11,7 @@ const styles = {
 
 const ImageCard = ({ picture, isFavorite }) => (
   <div className="card mr-2 mb-2" style={styles.card}>
-    <img className="card-img-top" src={picture.urls.thumb} alt="ImageCard" />
+    <LazyImage src={picture.urls.thumb} imageClass={"card-img-top"} />
     <div className="card-body text-center" style={styles.cardBody}>
       <h5 className="card-title">{picture.user.name}</h5>
       <p className="card-text">{picture.description}</p>
