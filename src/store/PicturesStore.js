@@ -18,6 +18,9 @@ class PictureStore {
   search = "";
 
   @observable
+  selectedPicture = observable.object();
+
+  @observable
   picturesRegistry = observable.array();
 
   constructor(rootStore, transportLayer) {

@@ -1,10 +1,14 @@
 import React from "react";
-import UserDetails from "../../components/user_details/UserDetails";
+import PictureDetails from "../../components/user_details/PictureDetails";
+import { observer, inject } from "mobx-react";
 
-const DetailsPage = props => (
-  <div className="d-flex justify-content-center align-items-center pt-5">
-    <UserDetails />
-  </div>
+const DetailsPage = inject("picturesStore")(
+  observer(({ picturesStore }) => (
+    <div className="d-flex justify-content-center align-items-center pt-5">
+      <PictureDetails />
+      <div>{JSON.stringify(picturesStore.selectedPicture)}</div>
+    </div>
+  ))
 );
 
 export default DetailsPage;

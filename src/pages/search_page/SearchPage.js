@@ -14,7 +14,7 @@ const styles = {
 };
 
 const SearchPage = inject("picturesStore")(
-  observer(({ picturesStore }) => (
+  observer(({ picturesStore, history }) => (
     <div className="container h-100">
       <div className="d-flex flex-column">
         <div style={styles.searchBarContainer}>
@@ -31,6 +31,10 @@ const SearchPage = inject("picturesStore")(
               key={picture.id}
               isFavorite={picture.isFavorite}
               makeFavorite={() => picturesStore.makeFavorite(picture)}
+              moreDetails={() => {
+                picturesStore.selectedPicture = picture;
+                history.push("/details");
+              }}
               makeUnfavorite={() => picturesStore.makeUnfavorite(picture)}
             />
           ))}

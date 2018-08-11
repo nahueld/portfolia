@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserDetails = props => (
+const PictureDetails = props => (
   <div>
     <div className="row mb-5">
       <div className="col-md-12 text-center">
@@ -19,4 +19,4 @@ const UserDetails = props => (
   </div>
 );
 
-export default UserDetails;
+export default PictureDetails;

@@ -21,7 +21,7 @@ class App extends React.Component {
           <div>
             <NavBar />
             <Switch>
-              <Route path="/" component={SearchPage} />
+              <Route path="/search" component={SearchPage} />
               <Route path="/favorites" component={FavoritesPage} />
               <Route path="/details" component={DetailsPage} />
               <Route component={SearchPage} />
