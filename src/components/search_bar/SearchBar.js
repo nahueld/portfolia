@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchBar = ({ onSearch, onChange }) => (
+const SearchBar = ({ onSearch, onChange, isLoading }) => (
   <div className="input-group mb-3">
     <input
       type="text"
@@ -12,11 +12,16 @@ const SearchBar = ({ onSearch, onChange }) => (
     />
     <div className="input-group-append">
       <button
+        disabled={isLoading}
         onClick={onSearch}
         className="btn btn-outline-primary"
         type="button"
       >
-        <i className="fa fa-search" aria-hidden="true" />
+        {isLoading ? (
+          <i className="fa fa-circle-o-notch fa-spin fa-fw" />
+        ) : (
+          <i className="fa fa-search" aria-hidden="true" />
+        )}
       </button>
     </div>
   </div>

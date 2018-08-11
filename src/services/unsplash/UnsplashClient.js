@@ -8,8 +8,10 @@ const unsplash = new Unsplash({
 const LIMIT = 30;
 
 const UnsplashClient = () => ({
-  search: (query, page) =>
-    unsplash.search.photos(query, page, LIMIT).then(toJson)
+  search: (query, page) => {
+    console.log("searching");
+    return unsplash.search.photos(query, page, LIMIT).then(toJson);
+  }
 });
 
 export default UnsplashClient;

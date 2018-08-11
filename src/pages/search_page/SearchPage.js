@@ -21,6 +21,7 @@ const SearchPage = inject("picturesStore")(
           <SearchBar
             onChange={event => (picturesStore.search = event.target.value)}
             onSearch={() => picturesStore.loadPictures()}
+            isLoading={picturesStore.isLoading}
           />
         </div>
         <div className="d-flex flex-wrap justify-content-center">
