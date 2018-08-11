@@ -14,7 +14,6 @@ class FavoritesStore {
 
   @computed
   get favorites() {
-    console.log("hellow", toJS(this.favoritesRegistry));
     return toJS(this.favoritesRegistry);
   }
 
