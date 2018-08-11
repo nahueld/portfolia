@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "./components/navbar/Navbar";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SearchPage from "./pages/search_page/SearchPage";
 import FavoritesPage from "./pages/favorites_page/FavoritesPage";
 import DetailsPage from "./pages/details_page/DetailsPage";
@@ -20,9 +20,12 @@ class App extends React.Component {
         <Router>
           <div>
             <NavBar />
-            <Route exact path="/" component={SearchPage} />
-            <Route path="/favorites" component={FavoritesPage} />
-            <Route path="/details/:id" component={DetailsPage} />
+            <Switch>
+              <Route path="/" component={SearchPage} />
+              <Route path="/favorites" component={FavoritesPage} />
+              <Route path="/details" component={DetailsPage} />
+              <Route component={SearchPage} />
+            </Switch>
           </div>
         </Router>
       </Provider>
