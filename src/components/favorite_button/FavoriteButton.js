@@ -12,7 +12,7 @@ const FavoriteButton = props => (
       ...styles.favoriteIcon
     }}
     className={`fa fa-heart-o fa-3x ${
-      props.isFavorited ? "text-danger" : "text-dark"
+      props.isFavorite ? "text-danger" : "text-dark"
     }`}
     aria-hidden="true"
   />

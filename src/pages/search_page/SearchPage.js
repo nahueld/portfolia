@@ -14,12 +14,15 @@ const SearchPage = inject("picturesStore")(
     <div className="container h-100">
       <div className="d-flex flex-column">
         <div style={styles.searchBarContainer}>
-          <SearchBar onSearch={() => picturesStore.loadPictures()} />
+          <SearchBar
+            onChange={event => (picturesStore.search = event.target.value)}
+            onSearch={() => picturesStore.loadPictures()}
+          />
         </div>
         <div className="d-flex flex-wrap justify-content-center">
-          <ImageCard id="1" />
-          <ImageCard />
-          <ImageCard />
+          {picturesStore.pictures.map(picture => (
+            <ImageCard picture={picture} key={picture.id} />
+          ))}
         </div>
       </div>
     </div>

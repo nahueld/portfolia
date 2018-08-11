@@ -8,20 +8,16 @@ const styles = {
   }
 };
 
-const ImageCard = props => (
+const ImageCard = ({ picture, isFavorite }) => (
   <div className="card mr-2 mb-2" style={styles.card}>
-    <img
-      className="card-img-top"
-      src="https://source.unsplash.com/collection/212915/286x180"
-      alt="ImageCard"
-    />
+    <img className="card-img-top" src={picture.urls.thumb} alt="ImageCard" />
     <div className="card-body text-center" style={styles.cardBody}>
-      <h5 className="card-title">John Doe</h5>
-      <p className="card-text">Image description</p>
+      <h5 className="card-title">{picture.user.name}</h5>
+      <p className="card-text">{picture.description}</p>
       <p className="card-text">
-        <Link to={`/details/${props.id}`}>more...</Link>
+        <Link to={`/details/${picture.id}`}>more...</Link>
       </p>
-      <FavoriteButton isFavorited={props.isFavorited} />
+      <FavoriteButton isFavorite={isFavorite} />
     </div>
   </div>
 );

@@ -1,14 +1,10 @@
-import { observable, action } from "mobx";
-import Unsplash, { toJson } from "unsplash-js";
-
-const unsplash = new Unsplash({
-  applicationId:
-    "e70d0a75a78f9c17905101410d5b73591f1aa11f82b5207e7ed3da9ef0cab584"
-});
-
-const LIMIT = 30;
+import { observable, action, computed, toJS } from "mobx";
+import * as _ from "lodash";
 
 class PictureStore {
+  rootStore;
+  transportLayer;
+
   @observable
   isLoading = false;
 
@@ -19,14 +15,53 @@ class PictureStore {
   totalPagesCount = 0;
 
   @observable
-  picturesRegistry = observable.map();
+  search = "";
+
+  @observable
+  picturesRegistry = observable.array();
+
+  constructor(rootStore, transportLayer) {
+    this.rootStore = rootStore;
+    this.transportLayer = transportLayer;
+  }
+
+  @computed
+  get pictures() {
+    return toJS(this.picturesRegistry);
+  }
 
   @action
   loadPictures() {
-    unsplash.search
-      .photos("nature", 1, LIMIT)
-      .then(toJson)
-      .then(f => console.log(JSON.stringify(f)));
+    this.isLoading = true;
+    return this.transportLayer
+      .search(this.search, 1)
+      .then(
+        action(({ results, total_pages }) => {
+          this.picturesRegistry.replace(
+            _(results)
+              .map(({ id, description, urls, user }) => ({
+                id,
+                description,
+                urls,
+                user
+              }))
+              .value()
+          );
+          this.totalPagesCount = total_pages;
+        })
+      )
+      .finally(action(() => (this.isLoading = false)));
+  }
+
+  @action
+  loadPicturesOnPage(pageNumber) {
+    return this.transportLayer.search(this.search, pageNumber);
+  }
+
+  @action
+  loadPicturesOnNextPage() {
+    this.page++;
+    return this.loadPicturesOnPage(this.page);
   }
 }
 

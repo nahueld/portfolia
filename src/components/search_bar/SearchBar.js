@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchBar = ({ onSearch }) => (
+const SearchBar = ({ onSearch, onChange }) => (
   <div className="input-group mb-3">
     <input
       type="text"
@@ -8,6 +8,7 @@ const SearchBar = ({ onSearch }) => (
       placeholder="Enter a topic"
       aria-label="Enter a topic"
       aria-describedby="basic-addon2"
+      onChange={onChange}
     />
     <div className="input-group-append">
       <button
