@@ -2,10 +2,14 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import SearchBar from "../../components/search_bar/SearchBar";
 import ImageCard from "../../components/image_card/ImageCard";
+import Pagination from "../../components/pagination/Pagination";
 
 const styles = {
   searchBarContainer: {
     padding: "2em 0 2em 0"
+  },
+  paginationContainer: {
+    paddingTop: 30
   }
 };
 
@@ -23,6 +27,20 @@ const SearchPage = inject("picturesStore")(
           {picturesStore.pictures.map(picture => (
             <ImageCard picture={picture} key={picture.id} />
           ))}
+        </div>
+        <div
+          className="d-flex justify-content-center"
+          style={styles.paginationContainer}
+        >
+          {picturesStore.currentPage > 0 && (
+            <Pagination
+              totalPages={picturesStore.totalPages}
+              currentPage={picturesStore.currentPage}
+              onPrevClick={() => picturesStore.loadPicturesOnPreviousPage()}
+              onPageClick={idx => picturesStore.loadPictures(idx)}
+              onNextClick={() => picturesStore.loadPicturesOnNextPage()}
+            />
+          )}
         </div>
       </div>
     </div>

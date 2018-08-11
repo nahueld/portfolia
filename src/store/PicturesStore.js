@@ -9,10 +9,10 @@ class PictureStore {
   isLoading = false;
 
   @observable
-  page = 0;
+  currentPage = 0;
 
   @observable
-  totalPagesCount = 0;
+  totalPages = 0;
 
   @observable
   search = "";
@@ -31,10 +31,10 @@ class PictureStore {
   }
 
   @action
-  loadPictures() {
+  loadPictures(page = 1) {
     this.isLoading = true;
     return this.transportLayer
-      .search(this.search, 1)
+      .search(this.search, page)
       .then(
         action(({ results, total_pages }) => {
           this.picturesRegistry.replace(
@@ -47,21 +47,26 @@ class PictureStore {
               }))
               .value()
           );
-          this.totalPagesCount = total_pages;
+          this.currentPage = page;
+          this.totalPages = total_pages;
         })
       )
       .finally(action(() => (this.isLoading = false)));
   }
 
   @action
-  loadPicturesOnPage(pageNumber) {
-    return this.transportLayer.search(this.search, pageNumber);
+  loadPicturesOnPreviousPage() {
+    this.currentPage = this.currentPage - 1 >= 1 ? this.currentPage - 1 : 1;
+    return this.loadPictures(this.currentPage);
   }
 
   @action
   loadPicturesOnNextPage() {
-    this.page++;
-    return this.loadPicturesOnPage(this.page);
+    this.currentPage =
+      this.currentPage + 1 <= this.totalPages
+        ? this.currentPage + 1
+        : this.totalPages;
+    return this.loadPictures(this.currentPage);
   }
 }
 
