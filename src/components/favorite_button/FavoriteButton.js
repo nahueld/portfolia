@@ -6,14 +6,14 @@ const styles = {
   }
 };
 
-const FavoriteButton = ({ isFavorite, makeFavorite }) => (
+const FavoriteButton = ({ isFavorite, makeFavorite, makeUnfavorite }) => (
   <i
-    onClick={makeFavorite}
+    onClick={isFavorite ? makeUnfavorite : makeFavorite}
     style={{
       ...styles.favoriteIcon
     }}
-    className={`fa fa-heart-o fa-3x ${
-      isFavorite ? "text-danger" : "text-dark"
+    className={`fa fa-3x ${
+      isFavorite ? "fa-heart text-danger" : "fa-heart-o text-dark"
     }`}
     aria-hidden="true"
   />

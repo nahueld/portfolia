@@ -13,8 +13,8 @@ const styles = {
   }
 };
 
-const SearchPage = inject("picturesStore", "favoritesStore")(
-  observer(({ picturesStore, favoritesStore }) => (
+const SearchPage = inject("picturesStore")(
+  observer(({ picturesStore }) => (
     <div className="container h-100">
       <div className="d-flex flex-column">
         <div style={styles.searchBarContainer}>
@@ -28,7 +28,9 @@ const SearchPage = inject("picturesStore", "favoritesStore")(
             <ImageCard
               picture={picture}
               key={picture.id}
-              makeFavorite={() => favoritesStore.saveFavorite(picture)}
+              isFavorite={picture.isFavorite}
+              makeFavorite={() => picturesStore.makeFavorite(picture)}
+              makeUnfavorite={() => picturesStore.makeUnfavorite(picture)}
             />
           ))}
         </div>

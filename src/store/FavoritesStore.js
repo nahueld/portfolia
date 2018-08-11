@@ -33,6 +33,14 @@ class FavoritesStore {
       .then(() => this.transportLayer.readAll())
       .then(action(results => this.favoritesRegistry.replace(results)));
   }
+
+  @action
+  removeFavorite(favorite) {
+    return this.transportLayer
+      .remove(favorite.id)
+      .then(() => this.transportLayer.readAll())
+      .then(action(results => this.favoritesRegistry.replace(results)));
+  }
 }
 
 export default FavoritesStore;

@@ -9,7 +9,7 @@ class PictureStore {
   isLoading = false;
 
   @observable
-  currentPage = 0;
+  currentPage = 1;
 
   @observable
   totalPages = 0;
@@ -31,7 +31,7 @@ class PictureStore {
   }
 
   @action
-  loadPictures(page = 1) {
+  loadPictures(page = this.currentPage) {
     this.isLoading = true;
     return this.transportLayer
       .search(this.search, page)
@@ -45,6 +45,10 @@ class PictureStore {
                 urls,
                 user
               }))
+              .map(picture => ({
+                ...picture,
+                isFavorite: this.isItFavorite(picture)
+              }))
               .value()
           );
           this.currentPage = page;
@@ -52,6 +56,23 @@ class PictureStore {
         })
       )
       .finally(action(() => (this.isLoading = false)));
+  }
+
+  @action
+  makeFavorite(picture) {
+    _(this.picturesRegistry).forEach(p => {
+      if (p.id === picture.id) p.isFavorite = true;
+    });
+    return this.rootStore.favoritesStore.saveFavorite(picture);
+  }
+
+  @action
+  makeUnfavorite(picture) {
+    console.log("makeUnfavorite", picture);
+    _(this.picturesRegistry).forEach(p => {
+      if (p.id === picture.id) p.isFavorite = false;
+    });
+    return this.rootStore.favoritesStore.removeFavorite(picture);
   }
 
   @action
@@ -67,6 +88,14 @@ class PictureStore {
         ? this.currentPage + 1
         : this.totalPages;
     return this.loadPictures(this.currentPage);
+  }
+
+  isItFavorite(picture) {
+    return (
+      _(this.rootStore.favoritesStore.favorites)
+        .filter(f => f.id === picture.id)
+        .first() !== undefined
+    );
   }
 }
 
