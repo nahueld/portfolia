@@ -26,7 +26,9 @@ const ImageCard = ({
       <h5 className="card-title">{picture.user.name}</h5>
       <p className="card-text">{picture.description}</p>
       <p className="card-text">
-        <a onClick={moreDetails}>more...</a>
+        <button type="button" onClick={moreDetails} className="btn btn-link">
+          more...
+        </button>
       </p>
       <FavoriteButton
         isFavorite={isFavorite}
