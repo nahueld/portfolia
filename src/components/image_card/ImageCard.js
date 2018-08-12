@@ -1,6 +1,7 @@
 import React from "react";
 import FavoriteButton from "../favorite_button/FavoriteButton";
 import LazyImage from "../lazy_image/LazyImage";
+import PropTypes from "prop-types";
 
 const styles = {
   card: {
@@ -38,5 +39,29 @@ const ImageCard = ({
     </div>
   </div>
 );
+
+ImageCard.propTypes = {
+  picture: PropTypes.object,
+  isFavorite: PropTypes.bool,
+  makeFavorite: PropTypes.func,
+  makeUnfavorite: PropTypes.func,
+  moreDetails: PropTypes.func
+};
+
+ImageCard.defaultProps = {
+  picture: {
+    user: {
+      name: ""
+    },
+    description: "",
+    urls: {
+      thumb: ""
+    },
+    error: true
+  },
+  isFavorite: false,
+  makeFavorite: () => console.error("callback is undefined"),
+  makeUnfavorite: () => console.error("callback is undefined")
+};
 
 export default ImageCard;
