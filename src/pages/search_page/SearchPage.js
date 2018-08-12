@@ -3,6 +3,7 @@ import { observer, inject } from "mobx-react";
 import SearchBar from "../../components/search_bar/SearchBar";
 import ImageCard from "../../components/image_card/ImageCard";
 import Pagination from "../../components/pagination/Pagination";
+import EmptyState from "../../components/empty_state/EmptyState";
 
 const styles = {
   searchBarContainer: {
@@ -26,21 +27,28 @@ const SearchPage = inject("picturesStore")(
           />
         </div>
         <div className="d-flex flex-wrap justify-content-center">
-          {picturesStore.pictures.map(picture => (
-            <ImageCard
-              picture={picture}
-              key={picture.id}
-              isFavorite={picture.isFavorite}
-              makeFavorite={() =>
-                !picture.error && picturesStore.makeFavorite(picture)
-              }
-              makeUnfavorite={() => picturesStore.makeUnfavorite(picture)}
-              moreDetails={() => {
-                picturesStore.selectedPicture = picture;
-                history.push("/details");
-              }}
+          {picturesStore.pictures.length === 0 ? (
+            <EmptyState
+              title="No search results."
+              description="Perform a new search using the search bar."
             />
-          ))}
+          ) : (
+            picturesStore.pictures.map(picture => (
+              <ImageCard
+                picture={picture}
+                key={picture.id}
+                isFavorite={picture.isFavorite}
+                makeFavorite={() =>
+                  !picture.error && picturesStore.makeFavorite(picture)
+                }
+                makeUnfavorite={() => picturesStore.makeUnfavorite(picture)}
+                moreDetails={() => {
+                  picturesStore.selectedPicture = picture;
+                  history.push("/details");
+                }}
+              />
+            ))
+          )}
         </div>
         <div
           className="d-flex justify-content-center"
