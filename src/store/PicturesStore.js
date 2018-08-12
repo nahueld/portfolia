@@ -46,14 +46,12 @@ class PictureStore {
                 id,
                 description,
                 urls,
-                user
-              }))
-              .map(picture => ({
-                ...picture,
-                isFavorite: this.isItFavorite(picture)
+                user,
+                isFavorite: this.isItFavorite(id)
               }))
               .value()
           );
+
           this.currentPage = page;
           this.totalPages = total_pages;
         })
@@ -92,10 +90,10 @@ class PictureStore {
     return this.loadPictures(this.currentPage);
   }
 
-  isItFavorite(picture) {
+  isItFavorite(pictureId) {
     return (
       _(this.rootStore.favoritesStore.favorites)
-        .filter(f => f.id === picture.id)
+        .filter(f => f.id === pictureId)
         .first() !== undefined
     );
   }

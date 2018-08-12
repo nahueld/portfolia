@@ -3,7 +3,7 @@ import ImageCard from "../../components/image_card/ImageCard";
 import { observer, inject } from "mobx-react";
 
 const FavoritesPage = inject("picturesStore", "favoritesStore")(
-  observer(({ picturesStore, favoritesStore }) => (
+  observer(({ picturesStore, favoritesStore, history }) => (
     <div className="container">
       <div className="d-flex flex-wrap justify-content-center pt-5">
         {favoritesStore.favorites.map(favorite => (
@@ -13,6 +13,10 @@ const FavoritesPage = inject("picturesStore", "favoritesStore")(
             makeFavorite={() => picturesStore.makeFavorite(favorite)}
             isFavorite={true}
             makeUnfavorite={() => picturesStore.makeUnfavorite(favorite)}
+            moreDetails={() => {
+              picturesStore.selectedPicture = favorite;
+              history.push("/details");
+            }}
           />
         ))}
       </div>

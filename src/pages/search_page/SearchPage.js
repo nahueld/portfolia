@@ -31,11 +31,11 @@ const SearchPage = inject("picturesStore")(
               key={picture.id}
               isFavorite={picture.isFavorite}
               makeFavorite={() => picturesStore.makeFavorite(picture)}
+              makeUnfavorite={() => picturesStore.makeUnfavorite(picture)}
               moreDetails={() => {
                 picturesStore.selectedPicture = picture;
                 history.push("/details");
               }}
-              makeUnfavorite={() => picturesStore.makeUnfavorite(picture)}
             />
           ))}
         </div>
