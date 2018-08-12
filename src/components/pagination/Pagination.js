@@ -19,7 +19,7 @@ const Pagination = observer(
               index !== 0 && (
                 <li
                   key={index}
-                  onClick={() => onPageClick(index)}
+                  onClick={() => index !== currentPage && onPageClick(index)}
                   className={`page-item ${index === currentPage && "active"}`}
                 >
                   <a className="page-link">{index}</a>
