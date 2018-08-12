@@ -1,5 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
+import PropTypes from "prop-types";
 
 const styles = {
   favoriteIcon: {
@@ -21,5 +22,17 @@ const FavoriteButton = observer(
     />
   )
 );
+
+FavoriteButton.propTypes = {
+  isFavorite: PropTypes.bool,
+  makeFavorite: PropTypes.func,
+  makeUnfavorite: PropTypes.func
+};
+
+FavoriteButton.defaultProps = {
+  isFavorite: false,
+  makeFavorite: () => console.error("callback is undefined"),
+  makeUnfavorite: () => console.error("callback is undefined")
+};
 
 export default FavoriteButton;
