@@ -47,7 +47,8 @@ class PictureStore {
                 description,
                 urls,
                 user,
-                isFavorite: this.isItFavorite(id)
+                isFavorite: this.isItFavorite(id),
+                error: false
               }))
               .value()
           );

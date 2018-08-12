@@ -16,7 +16,12 @@ const ImageCard = ({
   moreDetails
 }) => (
   <div className="card mr-2 mb-2" style={styles.card}>
-    <LazyImage src={picture.urls.thumb} imageClass={"card-img-top"} />
+    <LazyImage
+      src={picture.urls.thumb}
+      picture={picture}
+      imageClass={"card-img-top"}
+      onError={() => (picture.error = true)}
+    />
     <div className="card-body text-center" style={styles.cardBody}>
       <h5 className="card-title">{picture.user.name}</h5>
       <p className="card-text">{picture.description}</p>
