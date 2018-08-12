@@ -37,3 +37,6 @@ A react-mobx application to search and save your favorite images (powered by Uns
 - I'm using the unsplash library for simplicity however `npm audit` shows a high risk vulnerability, this lib should not be used in prod.
 - I'm holding state in mobx, navigation does not hold any state.
 - Local Storage is used to persist favorites.
+- Navigation is not working properly, for example:
+  - URL parameters are not read when loading a page.
+  - As navigation was not a explicit requirement I assument that user can navigate by using links provided in the app.
