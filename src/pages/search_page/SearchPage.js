@@ -19,6 +19,7 @@ const SearchPage = inject("picturesStore")(
       <div className="d-flex flex-column">
         <div style={styles.searchBarContainer}>
           <SearchBar
+            query={picturesStore.search}
             onChange={event => (picturesStore.search = event.target.value)}
             onSearch={() => picturesStore.loadPictures()}
             isLoading={picturesStore.isLoading}

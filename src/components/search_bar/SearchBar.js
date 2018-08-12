@@ -1,18 +1,18 @@
 import React from "react";
 
-const SearchBar = ({ onSearch, onChange, isLoading }) => (
+const SearchBar = ({ onSearch, onChange, isLoading, query }) => (
   <div className="input-group mb-3">
     <input
       type="text"
       className="form-control"
       placeholder="Enter a topic"
       aria-label="Enter a topic"
-      aria-describedby="basic-addon2"
+      value={query}
       onChange={onChange}
     />
     <div className="input-group-append">
       <button
-        disabled={isLoading}
+        disabled={isLoading || query.length === 0}
         onClick={onSearch}
         className="btn btn-outline-primary"
         type="button"
