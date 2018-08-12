@@ -30,7 +30,9 @@ const SearchPage = inject("picturesStore")(
               picture={picture}
               key={picture.id}
               isFavorite={picture.isFavorite}
-              makeFavorite={() => picturesStore.makeFavorite(picture)}
+              makeFavorite={() =>
+                !picture.error && picturesStore.makeFavorite(picture)
+              }
               makeUnfavorite={() => picturesStore.makeUnfavorite(picture)}
               moreDetails={() => {
                 picturesStore.selectedPicture = picture;
