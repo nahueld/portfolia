@@ -11,7 +11,6 @@ const LazyImage = ({ src, imageClass }) => (
       >
         <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-light" />
       </div>
-      //card-img-top
     }
   >
     <img className={imageClass} src={src} alt="LazyImage" />
