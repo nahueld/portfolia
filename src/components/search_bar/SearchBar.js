@@ -9,6 +9,7 @@ const SearchBar = ({ onSearch, onChange, isLoading, query }) => (
       aria-label="Enter a topic"
       value={query}
       onChange={onChange}
+      onKeyPress={event => event.key === "Enter" && !isLoading && onSearch()}
     />
     <div className="input-group-append">
       <button
