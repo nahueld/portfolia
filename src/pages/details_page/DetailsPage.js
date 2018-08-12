@@ -1,5 +1,5 @@
 import React from "react";
-import PictureDetails from "../../components/user_details/PictureDetails";
+import PictureDetails from "../../components/picture_details/PictureDetails";
 import { observer, inject } from "mobx-react";
 
 const DetailsPage = inject("picturesStore")(

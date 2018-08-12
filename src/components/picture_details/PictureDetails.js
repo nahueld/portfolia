@@ -8,7 +8,6 @@ const PictureDetails = ({ picture }) =>
         imageClass="card-img"
         src={picture.urls.regular}
         picture={picture}
-        onLoad={() => (picture.isLoading = false)}
         onError={() => (picture.error = true)}
       />
       <div className="card-img-overlay">
