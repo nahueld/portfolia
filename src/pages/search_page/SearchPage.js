@@ -45,15 +45,13 @@ const SearchPage = inject("picturesStore")(
           className="d-flex justify-content-center"
           style={styles.paginationContainer}
         >
-          {picturesStore.currentPage > 0 && (
-            <Pagination
-              totalPages={picturesStore.totalPages}
-              currentPage={picturesStore.currentPage}
-              onPrevClick={() => picturesStore.loadPicturesOnPreviousPage()}
-              onPageClick={idx => picturesStore.loadPictures(idx)}
-              onNextClick={() => picturesStore.loadPicturesOnNextPage()}
-            />
-          )}
+          <Pagination
+            totalPages={picturesStore.totalPages}
+            currentPage={picturesStore.currentPage}
+            onPrevClick={() => picturesStore.loadPicturesOnPreviousPage()}
+            onPageClick={idx => picturesStore.loadPictures(idx)}
+            onNextClick={() => picturesStore.loadPicturesOnNextPage()}
+          />
         </div>
       </div>
     </div>
