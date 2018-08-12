@@ -1,4 +1,4 @@
-import { observable, action, computed, toJS } from "mobx";
+import { observable, action } from "mobx";
 import * as _ from "lodash";
 
 class PictureStore {
@@ -23,14 +23,12 @@ class PictureStore {
   @observable
   picturesRegistry = observable.array();
 
+  @observable
+  errors = observable.array();
+
   constructor(rootStore, transportLayer) {
     this.rootStore = rootStore;
     this.transportLayer = transportLayer;
-  }
-
-  @computed
-  get pictures() {
-    return toJS(this.picturesRegistry);
   }
 
   @action
@@ -39,22 +37,27 @@ class PictureStore {
     return this.transportLayer
       .search(this.search, page)
       .then(
-        action(({ results, total_pages }) => {
-          this.picturesRegistry.replace(
-            _(results)
-              .map(({ id, description, urls, user }) => ({
-                id,
-                description,
-                urls,
-                user,
-                isFavorite: this.isItFavorite(id),
-                error: false
-              }))
-              .value()
-          );
+        action(({ results, total_pages, errors }) => {
+          if (errors) {
+            this.errors.replace(errors);
+          } else {
+            this.picturesRegistry.replace(
+              _(results)
+                .map(({ id, description, urls, user }) => ({
+                  id,
+                  description,
+                  urls,
+                  user,
+                  isFavorite: this.isItFavorite(id),
+                  error: false
+                }))
+                .value()
+            );
 
-          this.currentPage = page;
-          this.totalPages = total_pages;
+            this.currentPage = page;
+            this.totalPages = total_pages;
+            this.errors.replace([]);
+          }
         })
       )
       .finally(action(() => (this.isLoading = false)));

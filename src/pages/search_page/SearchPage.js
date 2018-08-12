@@ -4,6 +4,7 @@ import SearchBar from "../../components/search_bar/SearchBar";
 import ImageCard from "../../components/image_card/ImageCard";
 import Pagination from "../../components/pagination/Pagination";
 import EmptyState from "../../components/empty_state/EmptyState";
+import ErrorState from "../../components/error_state/ErrorState";
 
 const styles = {
   searchBarContainer: {
@@ -27,13 +28,15 @@ const SearchPage = inject("picturesStore")(
           />
         </div>
         <div className="d-flex flex-wrap justify-content-center">
-          {picturesStore.pictures.length === 0 ? (
+          {picturesStore.errors.length > 0 ? (
+            <ErrorState errors={picturesStore.errors} />
+          ) : picturesStore.picturesRegistry.length === 0 ? (
             <EmptyState
               title="No search results."
               description="Perform a new search using the search bar."
             />
           ) : (
-            picturesStore.pictures.map(picture => (
+            picturesStore.picturesRegistry.map(picture => (
               <ImageCard
                 picture={picture}
                 key={picture.id}

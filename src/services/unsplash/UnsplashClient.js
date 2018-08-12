@@ -9,7 +9,6 @@ const LIMIT = 30;
 
 const UnsplashClient = () => ({
   search: (query, page) => {
-    console.log("searching");
     return unsplash.search.photos(query, page, LIMIT).then(toJson);
   }
 });
