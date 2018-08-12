@@ -16,58 +16,74 @@ const styles = {
 };
 
 const SearchPage = inject("picturesStore")(
-  observer(({ picturesStore, history }) => (
-    <div className="container h-100">
-      <div className="d-flex flex-column">
-        <div style={styles.searchBarContainer}>
-          <SearchBar
-            query={picturesStore.search}
-            onChange={event => (picturesStore.search = event.target.value)}
-            onSearch={() => picturesStore.loadPictures()}
-            isLoading={picturesStore.isLoading}
-          />
-        </div>
-        <div className="d-flex flex-wrap justify-content-center">
-          {picturesStore.errors.length > 0 ? (
-            <ErrorState errors={picturesStore.errors} />
-          ) : picturesStore.picturesRegistry.length === 0 ? (
-            <EmptyState
-              title="No search results."
-              description="Perform a new search using the search bar."
-            />
-          ) : (
-            picturesStore.picturesRegistry.map(picture => (
-              <ImageCard
-                picture={picture}
-                key={picture.id}
-                isFavorite={picture.isFavorite}
-                makeFavorite={() =>
-                  !picture.error && picturesStore.makeFavorite(picture)
-                }
-                makeUnfavorite={() => picturesStore.makeUnfavorite(picture)}
-                moreDetails={() => {
-                  picturesStore.selectedPicture = picture;
-                  history.push("/details");
-                }}
-              />
-            ))
-          )}
-        </div>
-        <div
-          className="d-flex justify-content-center"
-          style={styles.paginationContainer}
-        >
-          <Pagination
-            totalPages={picturesStore.totalPages}
-            currentPage={picturesStore.currentPage}
-            onPrevClick={() => picturesStore.loadPicturesOnPreviousPage()}
-            onPageClick={idx => picturesStore.loadPictures(idx)}
-            onNextClick={() => picturesStore.loadPicturesOnNextPage()}
-          />
+  observer(({ picturesStore, history }) => {
+    const pagination = (
+      <Pagination
+        totalPages={picturesStore.totalPages}
+        currentPage={picturesStore.currentPage}
+        onPrevClick={() => picturesStore.loadPicturesOnPreviousPage()}
+        onPageClick={idx => picturesStore.loadPictures(idx)}
+        onNextClick={() => picturesStore.loadPicturesOnNextPage()}
+      />
+    );
+
+    const errorState = <ErrorState errors={picturesStore.errors} />;
+
+    const emptyState = (
+      <EmptyState
+        title="No search results."
+        description="Perform a new search using the search bar."
+      />
+    );
+
+    const searchBar = (
+      <SearchBar
+        query={picturesStore.search}
+        onChange={event => (picturesStore.search = event.target.value)}
+        onSearch={() => picturesStore.loadPictures()}
+        isLoading={picturesStore.isLoading}
+      />
+    );
+
+    const imageCard = picture => (
+      <ImageCard
+        picture={picture}
+        key={picture.id}
+        isFavorite={picture.isFavorite}
+        makeFavorite={() =>
+          !picture.error && picturesStore.makeFavorite(picture)
+        }
+        makeUnfavorite={() => picturesStore.makeUnfavorite(picture)}
+        moreDetails={() => {
+          picturesStore.selectedPicture = picture;
+          history.push("/details");
+        }}
+      />
+    );
+
+    return (
+      <div className="container h-100">
+        <div className="d-flex flex-column">
+          <div style={styles.searchBarContainer}>{searchBar}</div>
+          <div className="d-flex flex-wrap justify-content-center">
+            {picturesStore.errors.length > 0
+              ? errorState
+              : picturesStore.picturesRegistry.length === 0
+                ? emptyState
+                : picturesStore.picturesRegistry.map(picture =>
+                    imageCard(picture)
+                  )}
+          </div>
+          <div
+            className="d-flex justify-content-center"
+            style={styles.paginationContainer}
+          >
+            {pagination}
+          </div>
         </div>
       </div>
-    </div>
-  ))
+    );
+  })
 );
 
 export default SearchPage;
