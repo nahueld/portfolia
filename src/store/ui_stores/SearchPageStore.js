@@ -38,6 +38,11 @@ class SearchPageStore {
   }
 
   @action
+  setSearchQuery(query) {
+    this.search = query;
+  }
+
+  @action
   loadPictures(page = this.currentPage) {
     this.isLoading = true;
     this.transportLayer

@@ -40,7 +40,7 @@ const SearchPage = inject("searchPageStore")(
     const searchBar = (
       <SearchBar
         query={searchPageStore.search}
-        onChange={event => (searchPageStore.search = event.target.value)}
+        onChange={event => searchPageStore.setSearchQuery(event.target.value)}
         onSearch={() => searchPageStore.loadPictures()}
         isLoading={searchPageStore.isLoading}
       />
