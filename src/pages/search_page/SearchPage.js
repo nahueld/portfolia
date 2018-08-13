@@ -15,19 +15,19 @@ const styles = {
   }
 };
 
-const SearchPage = inject("picturesStore")(
-  observer(({ picturesStore, history }) => {
+const SearchPage = inject("picturesStore", "searchPageStore")(
+  observer(({ picturesStore, searchPageStore, history }) => {
     const pagination = (
       <Pagination
-        totalPages={picturesStore.totalPages}
-        currentPage={picturesStore.currentPage}
-        onPrevClick={() => picturesStore.loadPicturesOnPreviousPage()}
-        onPageClick={idx => picturesStore.loadPictures(idx)}
-        onNextClick={() => picturesStore.loadPicturesOnNextPage()}
+        totalPages={searchPageStore.totalPages}
+        currentPage={searchPageStore.currentPage}
+        onPrevClick={() => searchPageStore.loadPicturesOnPreviousPage()}
+        onPageClick={idx => searchPageStore.loadPictures(idx)}
+        onNextClick={() => searchPageStore.loadPicturesOnNextPage()}
       />
     );
 
-    const errorState = <ErrorState errors={picturesStore.errors} />;
+    const errorState = <ErrorState errors={searchPageStore.errors} />;
 
     const emptyState = (
       <EmptyState
@@ -38,10 +38,10 @@ const SearchPage = inject("picturesStore")(
 
     const searchBar = (
       <SearchBar
-        query={picturesStore.search}
-        onChange={event => (picturesStore.search = event.target.value)}
-        onSearch={() => picturesStore.loadPictures()}
-        isLoading={picturesStore.isLoading}
+        query={searchPageStore.search}
+        onChange={event => (searchPageStore.search = event.target.value)}
+        onSearch={() => searchPageStore.loadPictures()}
+        isLoading={searchPageStore.isLoading}
       />
     );
 
@@ -51,9 +51,9 @@ const SearchPage = inject("picturesStore")(
         key={picture.id}
         isFavorite={picture.isFavorite}
         makeFavorite={() =>
-          !picture.error && picturesStore.makeFavorite(picture)
+          !picture.error && searchPageStore.makeFavorite(picture)
         }
-        makeUnfavorite={() => picturesStore.makeUnfavorite(picture)}
+        makeUnfavorite={() => searchPageStore.makeUnfavorite(picture)}
         moreDetails={() => {
           picturesStore.selectedPicture = picture;
           history.push("/details");
@@ -66,7 +66,7 @@ const SearchPage = inject("picturesStore")(
         <div className="d-flex flex-column">
           <div style={styles.searchBarContainer}>{searchBar}</div>
           <div className="d-flex flex-wrap justify-content-center">
-            {picturesStore.errors.length > 0
+            {searchPageStore.errors.length > 0
               ? errorState
               : picturesStore.picturesRegistry.length === 0
                 ? emptyState

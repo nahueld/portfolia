@@ -1,12 +1,24 @@
-import PictureStore from "./PicturesStore";
+import PicturesStore from "./model_stores/PicturesStore";
+import FavoritesStore from "./model_stores/FavoritesStore";
+import SearchPageStore from "./ui_stores/SearchPageStore";
+import FavoritesPageStore from "./ui_stores/FavoritesPageStore";
 import UnsplashClient from "../services/unsplash/UnsplashClient";
-import FavoritesStore from "./FavoritesStore";
 import LocalStorageClient from "../services/local_storage/LocalStorageClient";
 
 class RootStore {
   constructor() {
-    this.picturesStore = new PictureStore(this, UnsplashClient());
-    this.favoritesStore = new FavoritesStore(this, LocalStorageClient());
+    this.favoritesStore = new FavoritesStore(this);
+    this.picturesStore = new PicturesStore(this);
+    this.searchPageStore = new SearchPageStore(
+      this,
+      UnsplashClient(),
+      LocalStorageClient()
+    );
+    this.favoritesPageStore = new FavoritesPageStore(
+      this,
+      null,
+      LocalStorageClient()
+    );
   }
 }
 

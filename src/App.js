@@ -11,13 +11,13 @@ class App extends React.Component {
   stores = new RootStore();
 
   componentDidMount() {
-    this.stores.favoritesStore.loadFavorites();
+    this.stores.favoritesPageStore.loadFavorites();
   }
 
   render() {
     return (
       <Provider {...this.stores}>
-        <Router onUpdate={() => window.scrollTo(0, 0)}>
+        <Router>
           <div>
             <NavBar />
             <Switch>
