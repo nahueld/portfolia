@@ -12,7 +12,7 @@ const UnsplashClient = () => ({
     return new Promise((resolve, reject) => {
       unsplash.search.photos(query, page, LIMIT).then(res => {
         let response =
-          res.status == 200
+          res.status === 200
             ? toJson(res)
             : { errors: [`Service Unavailable (${res.status})`] };
         return response.hasOwnProperty("errors")
