@@ -15,12 +15,13 @@ const styles = {
   }
 };
 
-const SearchPage = inject("picturesStore", "searchPageStore")(
+const SearchPage = inject("searchPageStore")(
   observer(({ searchPageStore, history }) => {
     const pagination = (
       <Pagination
         totalPages={searchPageStore.totalPages}
         currentPage={searchPageStore.currentPage}
+        isLoading={searchPageStore.isLoading}
         onPrevClick={() => searchPageStore.loadPicturesOnPreviousPage()}
         onPageClick={idx => searchPageStore.loadPictures(idx)}
         onNextClick={() => searchPageStore.loadPicturesOnNextPage()}
