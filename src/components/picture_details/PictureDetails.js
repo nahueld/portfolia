@@ -1,14 +1,8 @@
 import React from "react";
-import LazyImage from "../lazy_image/LazyImage";
 
 const PictureDetails = ({ picture }) => (
   <div className="card bg-dark text-white">
-    <LazyImage
-      imageClass="card-img"
-      src={picture.urls.regular}
-      picture={picture}
-      onError={() => (picture.error = true)}
-    />
+    <img className="card-img" src={picture.urls.regular} alt="LazyImage" />
     <div className="card-img-overlay">
       <h5 className="card-title bg-dark">{picture.user.name}</h5>
       <p className="card-text bg-dark">{picture.user.location}</p>
