@@ -1,4 +1,9 @@
 import { action } from "mobx";
+import {
+  makeUnfavorite,
+  setSelectedPicture,
+  listFavorites
+} from "./CommonActions";
 
 class FavoritesPageStore {
   rootStore;
@@ -9,15 +14,9 @@ class FavoritesPageStore {
     this.rootStore = rootStore;
     this.transportLayer = transportLayer;
     this.localStorageClient = localStorageClient;
-  }
-
-  listFavorites() {
-    return this.rootStore.favoritesStore.favoritesRegistry;
-  }
-
-  @action
-  setSelectedPicture(picture) {
-    this.rootStore.picturesStore.selectedPicture = picture;
+    this.makeUnfavorite = makeUnfavorite(rootStore, localStorageClient);
+    this.setSelectedPicture = setSelectedPicture(rootStore);
+    this.listFavorites = listFavorites(rootStore);
   }
 
   @action
@@ -25,13 +24,6 @@ class FavoritesPageStore {
     this.rootStore.favoritesStore.favoritesRegistry.replace(
       this.localStorageClient.readAll()
     );
-  }
-
-  @action
-  makeUnfavorite(favorite) {
-    this.rootStore.picturesStore.makeUnfavorite(favorite.id);
-    this.rootStore.favoritesStore.removeFavorite(favorite);
-    this.localStorageClient.remove(favorite.id);
   }
 }
 

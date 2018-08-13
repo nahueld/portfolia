@@ -1,4 +1,10 @@
 import { observable, action } from "mobx";
+import {
+  makeFavorite,
+  makeUnfavorite,
+  setSelectedPicture,
+  listPictures
+} from "./CommonActions";
 import * as _ from "lodash";
 
 class SearchPageStore {
@@ -25,15 +31,10 @@ class SearchPageStore {
     this.rootStore = rootStore;
     this.transportLayer = transportLayer;
     this.localStorageClient = localStorageClient;
-  }
-
-  @action
-  setSelectedPicture(picture) {
-    this.rootStore.picturesStore.selectedPicture = picture;
-  }
-
-  listPictures() {
-    return this.rootStore.picturesStore.picturesRegistry;
+    this.makeFavorite = makeFavorite(rootStore, localStorageClient);
+    this.makeUnfavorite = makeUnfavorite(rootStore, localStorageClient);
+    this.setSelectedPicture = setSelectedPicture(rootStore);
+    this.listPictures = listPictures(rootStore);
   }
 
   @action
@@ -44,14 +45,7 @@ class SearchPageStore {
       .then(
         action(({ results, total_pages }) => {
           let pictures = _(results)
-            .map(({ id, description, urls, user }) => ({
-              id,
-              description,
-              urls,
-              user,
-              isFavorite: this.isItFavorite(id),
-              error: false
-            }))
+            .map(result => this.convertResultToPicture(result))
             .value();
           this.rootStore.picturesStore.picturesRegistry.replace(pictures);
           this.currentPage = page;
@@ -83,26 +77,23 @@ class SearchPageStore {
     this.loadPictures(this.currentPage);
   }
 
-  @action
-  makeFavorite(picture) {
-    this.rootStore.picturesStore.makeFavorite(picture.id);
-    this.rootStore.favoritesStore.addFavorite(picture);
-    this.localStorageClient.save(picture);
-  }
-
-  @action
-  makeUnfavorite(picture) {
-    this.rootStore.picturesStore.makeUnfavorite(picture.id);
-    this.rootStore.favoritesStore.removeFavorite(picture);
-    this.localStorageClient.remove(picture.id);
-  }
-
   isItFavorite(pictureId) {
     return (
       _(this.localStorageClient.readAll())
         .filter(f => f.id === pictureId)
         .first() !== undefined
     );
+  }
+
+  convertResultToPicture({ id, description, urls, user }) {
+    return {
+      id,
+      description,
+      urls,
+      user,
+      isFavorite: this.isItFavorite(id),
+      error: false
+    };
   }
 }
 

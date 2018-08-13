@@ -1,3 +1,5 @@
+import { getSelectedPicture } from "./CommonActions";
+
 class DetailsPageStore {
   rootStore;
   transportLayer;
@@ -7,10 +9,7 @@ class DetailsPageStore {
     this.rootStore = rootStore;
     this.transportLayer = transportLayer;
     this.localStorageClient = localStorageClient;
-  }
-
-  getSelectedPicture() {
-    return this.rootStore.picturesStore.selectedPicture;
+    this.getSelectedPicture = getSelectedPicture(rootStore);
   }
 }
 
