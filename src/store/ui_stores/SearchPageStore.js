@@ -28,6 +28,15 @@ class SearchPageStore {
   }
 
   @action
+  setSelectedPicture(picture) {
+    this.rootStore.picturesStore.selectedPicture = picture;
+  }
+
+  listPictures() {
+    return this.rootStore.picturesStore.picturesRegistry;
+  }
+
+  @action
   loadPictures(page = this.currentPage) {
     this.isLoading = true;
     this.transportLayer

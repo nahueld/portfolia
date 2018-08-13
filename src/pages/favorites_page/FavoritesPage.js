@@ -8,23 +8,23 @@ const FavoritesPage = inject(
   "favoritesStore",
   "favoritesPageStore"
 )(
-  observer(({ picturesStore, favoritesStore, favoritesPageStore, history }) => (
+  observer(({ favoritesPageStore, history }) => (
     <div className="container">
       <div className="d-flex flex-wrap justify-content-center pt-5">
-        {favoritesStore.favoritesRegistry.length === 0 ? (
+        {favoritesPageStore.listFavorites().length === 0 ? (
           <EmptyState
             title="No favorites."
             description="After searching click on the heart to save your favorite pictures."
           />
         ) : (
-          favoritesStore.favoritesRegistry.map(favorite => (
+          favoritesPageStore.listFavorites().map(favorite => (
             <ImageCard
               picture={favorite}
               key={favorite.id}
               isFavorite={true}
               makeUnfavorite={() => favoritesPageStore.makeUnfavorite(favorite)}
               moreDetails={() => {
-                picturesStore.selectedPicture = favorite;
+                favoritesPageStore.setSelectedPicture(favorite);
                 history.push("/details");
               }}
             />

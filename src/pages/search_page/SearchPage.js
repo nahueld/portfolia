@@ -16,7 +16,7 @@ const styles = {
 };
 
 const SearchPage = inject("picturesStore", "searchPageStore")(
-  observer(({ picturesStore, searchPageStore, history }) => {
+  observer(({ searchPageStore, history }) => {
     const pagination = (
       <Pagination
         totalPages={searchPageStore.totalPages}
@@ -55,7 +55,7 @@ const SearchPage = inject("picturesStore", "searchPageStore")(
         }
         makeUnfavorite={() => searchPageStore.makeUnfavorite(picture)}
         moreDetails={() => {
-          picturesStore.selectedPicture = picture;
+          searchPageStore.setSelectedPicture(picture);
           history.push("/details");
         }}
       />
@@ -68,11 +68,11 @@ const SearchPage = inject("picturesStore", "searchPageStore")(
           <div className="d-flex flex-wrap justify-content-center">
             {searchPageStore.errors.length > 0
               ? errorState
-              : picturesStore.picturesRegistry.length === 0
+              : searchPageStore.listPictures().length === 0
                 ? emptyState
-                : picturesStore.picturesRegistry.map(picture =>
-                    imageCard(picture)
-                  )}
+                : searchPageStore
+                    .listPictures()
+                    .map(picture => imageCard(picture))}
           </div>
           <div
             className="d-flex justify-content-center"

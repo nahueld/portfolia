@@ -11,6 +11,15 @@ class FavoritesPageStore {
     this.localStorageClient = localStorageClient;
   }
 
+  listFavorites() {
+    return this.rootStore.favoritesStore.favoritesRegistry;
+  }
+
+  @action
+  setSelectedPicture(picture) {
+    this.rootStore.picturesStore.selectedPicture = picture;
+  }
+
   @action
   loadFavorites() {
     this.rootStore.favoritesStore.favoritesRegistry.replace(
