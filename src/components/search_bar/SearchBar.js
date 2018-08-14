@@ -1,5 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
+import PropTypes from "prop-types";
 
 const SearchBar = observer(({ onSearch, onChange, isLoading, query }) => (
   <div className="input-group mb-3">
@@ -28,5 +29,19 @@ const SearchBar = observer(({ onSearch, onChange, isLoading, query }) => (
     </div>
   </div>
 ));
+
+SearchBar.propTypes = {
+  onSearch: PropTypes.func,
+  onChange: PropTypes.func,
+  isLoading: PropTypes.bool,
+  query: PropTypes.string
+};
+
+SearchBar.defaultProps = {
+  onSearch: () => console.error("callback is undefined"),
+  onChange: () => console.error("callback is undefined"),
+  isLoading: false,
+  query: ""
+};
 
 export default SearchBar;

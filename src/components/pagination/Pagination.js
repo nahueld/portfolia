@@ -1,5 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
+import PropTypes from "prop-types";
 
 const Pagination = observer(
   ({
@@ -11,7 +12,10 @@ const Pagination = observer(
     isLoading
   }) => {
     const prevButton = currentPage !== 1 && (
-      <li className="page-item" onClick={() => !isLoading && onPrevClick()}>
+      <li
+        className="prev-btn page-item"
+        onClick={() => !isLoading && onPrevClick()}
+      >
         <a className="page-link">Previous</a>
       </li>
     );
@@ -25,7 +29,8 @@ const Pagination = observer(
             onClick={() =>
               index !== currentPage && !isLoading && onPageClick(index)
             }
-            className={`page-item ${index === currentPage && "active"}`}
+            className={`page-btn page-item ${index === currentPage &&
+              "active"}`}
           >
             <a className="page-link">{index}</a>
           </li>
@@ -33,10 +38,11 @@ const Pagination = observer(
     );
 
     const nextButton = currentPage + 2 < totalPages && (
-      <li className="page-item">
-        <a onClick={() => !isLoading && onNextClick()} className="page-link">
-          Next
-        </a>
+      <li
+        className="next-btn page-item"
+        onClick={() => !isLoading && onNextClick()}
+      >
+        <a className="page-link">Next</a>
       </li>
     );
 
@@ -53,5 +59,23 @@ const Pagination = observer(
     );
   }
 );
+
+Pagination.propTypes = {
+  totalPages: PropTypes.number,
+  currentPage: PropTypes.number,
+  onPrevClick: PropTypes.func,
+  onPageClick: PropTypes.func,
+  onNextClick: PropTypes.func,
+  isLoading: PropTypes.bool
+};
+
+Pagination.defaultProps = {
+  totalPages: 0,
+  currentPage: 0,
+  onPrevClick: () => console.error("callback is undefined"),
+  onPageClick: () => console.error("callback is undefined"),
+  onNextClick: () => console.error("callback is undefined"),
+  isLoading: false
+};
 
 export default Pagination;

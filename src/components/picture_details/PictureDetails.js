@@ -1,5 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
+import PropTypes from "prop-types";
 
 const PictureDetails = observer(({ picture }) => (
   <div className="card bg-dark text-white">
@@ -11,5 +12,22 @@ const PictureDetails = observer(({ picture }) => (
     </div>
   </div>
 ));
+
+PictureDetails.propTypes = {
+  picture: PropTypes.object
+};
+
+PictureDetails.defaultProps = {
+  picture: {
+    user: {
+      name: "",
+      location: "",
+      bio: ""
+    },
+    urls: {
+      regular: ""
+    }
+  }
+};
 
 export default PictureDetails;
