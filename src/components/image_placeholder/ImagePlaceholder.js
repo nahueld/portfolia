@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const ImagePlaceholder = ({ children }) => (
   <div
@@ -8,5 +9,13 @@ const ImagePlaceholder = ({ children }) => (
     {children}
   </div>
 );
+
+ImagePlaceholder.propTypes = {
+  children: PropTypes.node
+};
+
+ImagePlaceholder.defaultProps = {
+  children: <div />
+};
 
 export default ImagePlaceholder;

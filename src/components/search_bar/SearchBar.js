@@ -1,6 +1,7 @@
 import React from "react";
+import { observer } from "mobx-react";
 
-const SearchBar = ({ onSearch, onChange, isLoading, query }) => (
+const SearchBar = observer(({ onSearch, onChange, isLoading, query }) => (
   <div className="input-group mb-3">
     <input
       type="text"
@@ -26,6 +27,6 @@ const SearchBar = ({ onSearch, onChange, isLoading, query }) => (
       </button>
     </div>
   </div>
-);
+));
 
 export default SearchBar;

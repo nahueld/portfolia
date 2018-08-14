@@ -50,8 +50,8 @@ class SearchPageStore {
           this.convertResultToPicture(result)
         );
         this.rootStore.picturesStore.picturesRegistry.replace(pictures);
-        this.currentPage = page;
-        this.totalPages = total_pages;
+        this.currentPage = parseInt(page, 10);
+        this.totalPages = parseInt(total_pages, 10);
         this.errors.replace([]);
         this.isLoading = false;
       }),

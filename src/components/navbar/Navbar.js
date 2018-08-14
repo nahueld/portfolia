@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { observer } from "mobx-react";
 
-const NavBar = props => (
+const NavBar = observer(() => (
   <nav className="navbar navbar-expand-lg navbar-light bg-light">
     <span className="navbar-brand">Portfolia</span>
     <div className="collapse navbar-collapse" id="navbarNav">
@@ -19,6 +20,6 @@ const NavBar = props => (
       </ul>
     </div>
   </nav>
-);
+));
 
 export default NavBar;

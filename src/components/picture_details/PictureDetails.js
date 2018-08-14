@@ -1,6 +1,7 @@
 import React from "react";
+import { observer } from "mobx-react";
 
-const PictureDetails = ({ picture }) => (
+const PictureDetails = observer(({ picture }) => (
   <div className="card bg-dark text-white">
     <img className="card-img" src={picture.urls.regular} alt="LazyImage" />
     <div className="card-img-overlay">
@@ -9,6 +10,6 @@ const PictureDetails = ({ picture }) => (
       <p className="card-text bg-dark">{picture.user.bio}</p>
     </div>
   </div>
-);
+));
 
 export default PictureDetails;
