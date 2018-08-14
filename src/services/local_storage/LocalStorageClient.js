@@ -1,8 +1,6 @@
 import _ from "lodash";
 
-const localStorage = window.localStorage;
-
-const LocalStorageClient = () => ({
+const LocalStorageClient = localStorage => ({
   save: picture =>
     localStorage.setItem(`portfolia-${picture.id}`, JSON.stringify(picture)),
   remove: pictureId => localStorage.removeItem(`portfolia-${pictureId}`),
