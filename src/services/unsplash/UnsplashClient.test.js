@@ -3,8 +3,6 @@ import UnsplashClient from "./UnsplashClient";
 describe("UnsplashClient", () => {
   let unsplash;
 
-  beforeEach(() => {});
-
   it("responds 200", done => {
     unsplash = {
       search: {
