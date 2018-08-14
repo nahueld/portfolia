@@ -5,7 +5,6 @@ import {
   setSelectedPicture,
   listPictures
 } from "./CommonActions";
-import * as _ from "lodash";
 
 class SearchPageStore {
   rootStore;
@@ -45,26 +44,25 @@ class SearchPageStore {
   @action
   loadPictures(page = this.currentPage) {
     this.isLoading = true;
-    this.transportLayer
-      .search(this.search, page)
-      .then(
-        action(({ results, total_pages }) => {
-          let pictures = _(results)
-            .map(result => this.convertResultToPicture(result))
-            .value();
-          this.rootStore.picturesStore.picturesRegistry.replace(pictures);
-          this.currentPage = page;
-          this.totalPages = total_pages;
-          this.errors.replace([]);
-        }),
-        action(({ errors }) => {
-          this.rootStore.picturesStore.picturesRegistry.replace([]);
-          this.currentPage = 1;
-          this.totalPages = 0;
-          this.errors.replace(errors);
-        })
-      )
-      .finally(action(() => (this.isLoading = false)));
+    return this.transportLayer.search(this.search, page).then(
+      action(({ results, total_pages }) => {
+        let pictures = results.map(result =>
+          this.convertResultToPicture(result)
+        );
+        this.rootStore.picturesStore.picturesRegistry.replace(pictures);
+        this.currentPage = page;
+        this.totalPages = total_pages;
+        this.errors.replace([]);
+        this.isLoading = false;
+      }),
+      action(({ errors }) => {
+        this.rootStore.picturesStore.picturesRegistry.replace([]);
+        this.currentPage = 1;
+        this.totalPages = 0;
+        this.errors.replace(errors);
+        this.isLoading = false;
+      })
+    );
   }
 
   @action
@@ -84,9 +82,8 @@ class SearchPageStore {
 
   isItFavorite(pictureId) {
     return (
-      _(this.localStorageClient.readAll())
-        .filter(f => f.id === pictureId)
-        .first() !== undefined
+      this.localStorageClient.readAll().filter(f => f.id === pictureId)[0] !==
+      undefined
     );
   }
 
